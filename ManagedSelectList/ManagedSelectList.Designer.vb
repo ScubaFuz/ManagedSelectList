@@ -23,6 +23,7 @@ Partial Class ManagedSelectList
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
         Me.components = New System.ComponentModel.Container()
+        Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(ManagedSelectList))
         Me.chkLimitResults = New System.Windows.Forms.CheckBox()
         Me.txtTop = New System.Windows.Forms.TextBox()
         Me.tbrSearchMethod = New System.Windows.Forms.TrackBar()
@@ -91,20 +92,20 @@ Partial Class ManagedSelectList
         '
         'btnFirstPage
         '
+        Me.btnFirstPage.Image = CType(resources.GetObject("btnFirstPage.Image"), System.Drawing.Image)
         Me.btnFirstPage.Location = New System.Drawing.Point(2, 2)
         Me.btnFirstPage.Name = "btnFirstPage"
         Me.btnFirstPage.Size = New System.Drawing.Size(28, 23)
         Me.btnFirstPage.TabIndex = 6
-        Me.btnFirstPage.Text = "<<"
         Me.btnFirstPage.UseVisualStyleBackColor = True
         '
         'btnLastPage
         '
+        Me.btnLastPage.Image = CType(resources.GetObject("btnLastPage.Image"), System.Drawing.Image)
         Me.btnLastPage.Location = New System.Drawing.Point(121, 2)
         Me.btnLastPage.Name = "btnLastPage"
         Me.btnLastPage.Size = New System.Drawing.Size(28, 23)
         Me.btnLastPage.TabIndex = 9
-        Me.btnLastPage.Text = ">>"
         Me.btnLastPage.UseVisualStyleBackColor = True
         '
         'txtSearch
