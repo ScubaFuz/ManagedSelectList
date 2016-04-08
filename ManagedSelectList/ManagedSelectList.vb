@@ -144,7 +144,7 @@ Public Class ManagedSelectList
     End Function
 
     Private Sub DataSearch(Optional blnUseSearchText As Boolean = True)
-        Dim strSearchQuery
+        Dim strSearchQuery As String = ""
         Dim strQuerySelect As String = "SELECT DISTINCT "
         Dim strQueryFrom As String = "FROM "
         Dim strQueryWhere As String = "WHERE "
@@ -165,7 +165,11 @@ Public Class ManagedSelectList
         strSearchQuery = strQuerySelect & strQueryFrom
         If txtSearch.Text.Length > 0 And blnUseSearchText = True Then strSearchQuery &= strQueryWhere & strQueryLike
         strSearchQuery &= strQueryOrder
-        dstSearch = QueryDb(strSearchQuery)
+        If strSearchQuery.Contains("[]") Then
+            dstSearch = Nothing
+        Else
+            dstSearch = QueryDb(strSearchQuery)
+        End If
     End Sub
 
     Private Sub DataFilter()
@@ -211,9 +215,8 @@ Public Class ManagedSelectList
         LoadPage()
     End Sub
 
-    Private Sub btnFirstPage_Click(ByVal sender As System.Object, _
-        ByVal e As System.EventArgs) Handles btnFirstPage.Click
-
+    Private Sub btnFirstPage_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnFirstPage.Click
+        If CheckPage() = False Then Return
         ' Check if you are already at the first page.
         If currentPage = 1 Then
             Return
@@ -225,9 +228,8 @@ Public Class ManagedSelectList
         LoadPage()
     End Sub
 
-    Private Sub btnPreviousPage_Click(ByVal sender As System.Object, _
-    ByVal e As System.EventArgs) Handles btnPreviousPage.Click
-
+    Private Sub btnPreviousPage_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnPreviousPage.Click
+        If CheckPage() = False Then Return
         If currentPage = PageCount Then
             recNo = pageSize * (currentPage - 2)
         End If
@@ -245,11 +247,8 @@ Public Class ManagedSelectList
         LoadPage()
     End Sub
 
-    Private Sub btnNextPage_Click(ByVal sender As System.Object, _
-    ByVal e As System.EventArgs) Handles btnNextPage.Click
-        If pageSize = 0 Then
-            Return
-        End If
+    Private Sub btnNextPage_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnNextPage.Click
+        If CheckPage() = False Then Return
 
         currentPage = currentPage + 1
 
@@ -263,8 +262,8 @@ Public Class ManagedSelectList
         LoadPage()
     End Sub
 
-    Private Sub btnLastPage_Click(ByVal sender As System.Object, _
-        ByVal e As System.EventArgs) Handles btnLastPage.Click
+    Private Sub btnLastPage_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnLastPage.Click
+        If CheckPage() = False Then Return
         ' Check if you are already at the last page.
         If recNo = maxRec Then
             Return
@@ -274,6 +273,13 @@ Public Class ManagedSelectList
         recNo = pageSize * (currentPage - 1)
         LoadPage()
     End Sub
+
+    Private Function CheckPage() As Boolean
+        If maxRec = 0 Then Return False
+        If PageCount = 0 Then Return False
+        If pageSize < 1 Then Return False
+        Return True
+    End Function
 
     Private Sub LoadPage()
         Dim i As Integer
