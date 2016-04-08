@@ -105,7 +105,7 @@ Namespace My.Resources
         '''</summary>
         Friend ReadOnly Property Funnel_icon() As System.Drawing.Bitmap
             Get
-                Dim obj As Object = ResourceManager.GetObject("Funnel-icon", resourceCulture)
+                Dim obj As Object = ResourceManager.GetObject("Funnel_icon", resourceCulture)
                 Return CType(obj,System.Drawing.Bitmap)
             End Get
         End Property
@@ -115,7 +115,7 @@ Namespace My.Resources
         '''</summary>
         Friend ReadOnly Property Zoom_icon() As System.Drawing.Bitmap
             Get
-                Dim obj As Object = ResourceManager.GetObject("Zoom-icon", resourceCulture)
+                Dim obj As Object = ResourceManager.GetObject("Zoom_icon", resourceCulture)
                 Return CType(obj,System.Drawing.Bitmap)
             End Get
         End Property
