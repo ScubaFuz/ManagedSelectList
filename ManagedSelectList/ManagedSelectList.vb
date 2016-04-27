@@ -85,6 +85,7 @@ Public Class ManagedSelectList
         Set(ByVal Value As Color)
             txtSearch.BackColor = Value
             MyBase.BackColor = SystemColors.Control
+            btnDropDown.BackColor = SystemColors.Control
         End Set
     End Property
 
