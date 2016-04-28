@@ -121,6 +121,7 @@ Partial Class ManagedSelectList
         '
         Me.txtDisplayPageNo.Location = New System.Drawing.Point(55, 4)
         Me.txtDisplayPageNo.Name = "txtDisplayPageNo"
+        Me.txtDisplayPageNo.ReadOnly = True
         Me.txtDisplayPageNo.Size = New System.Drawing.Size(41, 20)
         Me.txtDisplayPageNo.TabIndex = 10
         '

@@ -83,9 +83,8 @@ Public Class ManagedSelectList
             Return txtSearch.BackColor
         End Get
         Set(ByVal Value As Color)
+            Resetcolors(Me)
             txtSearch.BackColor = Value
-            MyBase.BackColor = SystemColors.Control
-            btnDropDown.BackColor = SystemColors.Control
         End Set
     End Property
 
@@ -126,6 +125,20 @@ Public Class ManagedSelectList
         'Table = "tbl_Servers"
         'IdentifierField = "ServerID"
         'SearchField = "datasource"
+    End Sub
+
+    Private Sub Resetcolors(BaseControl As Control)
+        'BaseControl.BackColor = SystemColors.Control
+        If BaseControl.HasChildren = True Then
+            For Each ctrl As Control In BaseControl.Controls
+                If ctrl.Name.Length > 3 AndAlso ctrl.Name.Substring(0, 3) = "txt" Then
+                    ctrl.BackColor = SystemColors.Window
+                Else
+                    ctrl.BackColor = SystemColors.Control
+                End If
+                'If ctrl.HasChildren Then Resetcolors(ctrl)
+            Next
+        End If
     End Sub
 
     Private Function QueryDb(ByVal strQueryData As String) As DataSet
@@ -374,7 +387,7 @@ Public Class ManagedSelectList
     End Sub
 
     Private Sub btnDropDown_Click(sender As Object, e As EventArgs) Handles btnDropDown.Click
-        DropDown(0, False)
+        DropDown(0, True)
     End Sub
 
     Public Sub DropDown(Optional ForceDropDown As Integer = 0, Optional UseSearchText As Boolean = True)
@@ -385,9 +398,9 @@ Public Class ManagedSelectList
             If Me.Width < 225 Then Me.Width = 225
             If Me.Width + Me.Left > Me.Parent.Width - 25 Then Me.Width = Me.Parent.Width - Me.Left - 25
             btnDropDown.Image = My.Resources.Resources.button_up
-            If UseSearchText = False Then
-                RunSearch(False)
-            End If
+            'If UseSearchText = False Then
+            RunSearch(UseSearchText)
+            'End If
         ElseIf (DroppedDown = True And (ForceDropDown = 0 Or ForceDropDown = 2)) Or ForceDropDown = -1 Then
             Me.Height = txtSearch.Height
             DroppedDown = False
