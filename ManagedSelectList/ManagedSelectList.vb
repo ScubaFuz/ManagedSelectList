@@ -22,7 +22,16 @@ Public Class ManagedSelectList
     Private currentPage As Integer = 1
     Private recNo As Integer = 0
     Private MaxColumnWidth As Integer = 200
-    Private SuspendActions As Boolean = False
+    Private _SuspendActions As Boolean = False
+
+    Public Property SuspendActions() As Boolean
+        Get
+            Return _SuspendActions
+        End Get
+        Set(ByVal Value As Boolean)
+            _SuspendActions = Value
+        End Set
+    End Property
 
     Public Property Table() As String
         Get
@@ -412,9 +421,9 @@ Public Class ManagedSelectList
     End Sub
 
     Private Sub txtSearch_TextChanged(sender As Object, e As EventArgs) Handles txtSearch.TextChanged
-        RaiseEvent TextChanged(Me, e)
-        Me.Refresh()
         If SuspendActions = False Then
+            RaiseEvent TextChanged(Me, e)
+            Me.Refresh()
             If tmrSuspendLookup.Enabled = False Then
                 tmrSuspendLookup.Enabled = True
                 tmrSuspendLookup.Start()
