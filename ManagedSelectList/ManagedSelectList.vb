@@ -7,6 +7,7 @@ Public Class ManagedSelectList
     Private _Table As String = ""
     Private _IdentifierField As String = ""
     Private _SearchField As String = ""
+    Private _SearchFieldAlias As String = ""
     Private _DataConn As New DataHandler.db
     Private _Value As String
     Private _BaseWidth As Integer = 0
@@ -57,6 +58,15 @@ Public Class ManagedSelectList
         End Get
         Set(ByVal Value As String)
             _SearchField = Value
+        End Set
+    End Property
+
+    Public Property SearchFieldAlias() As String
+        Get
+            Return _SearchFieldAlias
+        End Get
+        Set(ByVal Value As String)
+            _SearchFieldAlias = Value
         End Set
     End Property
 
